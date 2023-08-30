@@ -6,13 +6,14 @@ test.beforeEach(async ({page}) => {
 });
 
 test.describe('Navigation', () => {
-    // test how to get from collections to article
     test('Should Navigate from general collections to article', async ({page}) => {
         await page.locator('#general').click();
 
         await expect(page).toHaveTitle('General | bunch Help Center');
         await expect(page.getByTestId('collection-photo')).toBeVisible();
+
         const generalHeader = page.locator('#general header:has-text("General")');
+
         await expect(generalHeader).toBeVisible();
         await expect(page.locator('#about-bunch')).toBeVisible();
 
@@ -25,7 +26,7 @@ test.describe('Navigation', () => {
     });
     test('user inserts wrong url', async ({page}) => {
 
-        const wrongUrl= 'brunchesss'
+        const wrongUrl= 'brunchesss';
         await page.goto(wrongUrl);
 
 

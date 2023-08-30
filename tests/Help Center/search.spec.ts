@@ -5,18 +5,21 @@ test.beforeEach(async ({page}) => {
 });
 
 test.describe('Search', () => {
-    // search with preview dropdown
     test('should search for an article using dropdown menu', async ({page}) => {
         await page.getByPlaceholder('Search for articles...').type('angel');
+
         await expect(page.getByTestId('search-popup')).toBeVisible();
+
         await page.locator('a[href*="/en/articles/"]').first().click()
+
         await expect(page).toHaveURL(/.*angel/);
         await expect(page.getByTestId('article-section')).toBeVisible();
+
         const headerArticle = page.locator('header:text("angel")');
+
         await expect(headerArticle).toBeVisible();
         await expect(page.getByRole('article')).toContainText('angel');
     });
-    // search with full list of results
     test('should search for article using full list of results', async ({page}) => {
         const searchInput = page.getByPlaceholder('Search for articles...');
         await searchInput.type('bunch');
@@ -29,7 +32,9 @@ test.describe('Search', () => {
         await expect(page).toHaveURL(/.*bunch/);
         await expect(page.getByTestId('breadcrumb-1')).toContainText('bunch')
         await expect(page.getByTestId('article-section')).toBeVisible();
+
         const headerArticle = page.locator('header:text("bunch")');
+
         await expect(headerArticle).toBeVisible();
         await expect(page.getByRole('article')).toContainText('bunch');
     })
